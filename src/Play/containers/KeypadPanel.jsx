@@ -19,7 +19,7 @@ export default class KeypadPanel extends PureComponent {
   }
 
   appendNumber(number) {
-    const { equation, onChange } = this.props;
+    const { equation, onChange, onChangeDisabled } = this.props;
 
     var splitEquation = equation.split('=');
     var leftside = splitEquation[0] + number.toString();
@@ -27,6 +27,7 @@ export default class KeypadPanel extends PureComponent {
 
     const newEquation = leftside + '=' + rightside;
     onChange(newEquation);
+    onChangeDisabled(false);
   }
 
   erase() {
@@ -176,4 +177,5 @@ export default class KeypadPanel extends PureComponent {
 KeypadPanel.protoTypes = {
   equation: PropTypes.string,
   onChange: PropTypes.func,
+  onChangeDisabled: PropTypes.func,
 };
