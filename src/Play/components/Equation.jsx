@@ -9,6 +9,6 @@ export default class Equation extends PureComponent {
 
   render() {
     const { equation } = this.props;
-    return <div>{equation}</div>;
+    return <div style={{ color: '#0D1321', fontSize: '40px' }}>{equation}</div>;
   }
 }
