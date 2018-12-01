@@ -8,10 +8,8 @@ export default class OperatorPanel extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      value: 0,
-      result: '',
-    };
+    // this.state = {
+    // };
 
     this.addMirror = this.addMirror.bind(this);
     this.substractMirror = this.substractMirror.bind(this);
@@ -21,35 +19,50 @@ export default class OperatorPanel extends PureComponent {
   }
 
   addMirror() {
-    this.setState(state => ({
-      value: state.value + 2,
-    }));
+    var splitEquation = this.props.equation.split('=');
+    var leftside = splitEquation[0] + '+';
+    var rightside = splitEquation[1] + '+';
 
-    this.props.onChangeEquation('new eq');
+    const newEquation = leftside + '=' + rightside;
+    this.props.onChangeEquation(newEquation);
+
+    //var newEquation = math.simplify(leftside) + '=' + math.simplify(rightside);
   }
 
   substractMirror() {
-    this.setState(state => ({
-      value: state.value - 2,
-    }));
+    var splitEquation = this.props.equation.split('=');
+    var leftside = splitEquation[0] + '-';
+    var rightside = splitEquation[1] + '-';
+
+    const newEquation = leftside + '=' + rightside;
+    this.props.onChangeEquation(newEquation);
   }
 
   multiplyMirror() {
-    this.setState(state => ({
-      value: state.value * 2,
-    }));
+    var splitEquation = this.props.equation.split('=');
+    var leftside = '(' + splitEquation[0] + ')*';
+    var rightside = '(' + splitEquation[1] + ')*';
+
+    const newEquation = leftside + '=' + rightside;
+    this.props.onChangeEquation(newEquation);
   }
 
   divideMirror() {
-    this.setState(state => ({
-      value: state.value / 2,
-    }));
+    var splitEquation = this.props.equation.split('=');
+    var leftside = '(' + splitEquation[0] + ')/';
+    var rightside = '(' + splitEquation[1] + ')/';
+
+    const newEquation = leftside + '=' + rightside;
+    this.props.onChangeEquation(newEquation);
   }
 
   exponentMirror() {
-    this.setState(state => ({
-      value: state.value ^ 2,
-    }));
+    var splitEquation = this.props.equation.split('=');
+    var leftside = '(' + splitEquation[0] + ')^';
+    var rightside = '(' + splitEquation[1] + ')^';
+
+    const newEquation = leftside + '=' + rightside;
+    this.props.onChangeEquation(newEquation);
   }
 
   render() {
@@ -62,16 +75,32 @@ export default class OperatorPanel extends PureComponent {
           justifyContent: 'center',
         }}
       >
-        <AwesomeButton type="primary" action={this.addMirror}>
+        <AwesomeButton
+          type="primary"
+          action={this.addMirror}
+          style={{ marginRight: '2px' }}
+        >
           +
         </AwesomeButton>
-        <AwesomeButton type="primary" action={this.substractMirror}>
+        <AwesomeButton
+          type="primary"
+          action={this.substractMirror}
+          style={{ marginRight: '2px' }}
+        >
           &minus;
         </AwesomeButton>
-        <AwesomeButton type="primary" action={this.multiplyMirror}>
-          &times;
+        <AwesomeButton
+          type="primary"
+          action={this.multiplyMirror}
+          style={{ marginRight: '2px' }}
+        >
+          *
         </AwesomeButton>
-        <AwesomeButton type="primary" action={this.divideMirror}>
+        <AwesomeButton
+          type="primary"
+          action={this.divideMirror}
+          style={{ marginRight: '2px' }}
+        >
           &divide;
         </AwesomeButton>
         <AwesomeButton type="primary" action={this.exponentMirror}>
