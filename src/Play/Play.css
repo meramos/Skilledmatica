@@ -1,0 +1,9 @@
+.Play {
+  float: left;
+  clear: none;
+}
+
+.MirrorOperations {
+  display: inline-block;
+  border-style: dotted;
+}
