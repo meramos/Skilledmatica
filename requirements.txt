@@ -1,3 +1,0 @@
-pygame==1.9.4
-TBB==0.1
-virtualenv==16.1.0
