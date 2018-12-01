@@ -30,7 +30,7 @@ class App extends Component {
     const { width, height } = this.state;
     return (
       <Router>
-        <div style={[styles.container]}>
+        <div id="Routes" style={styles.container}>
           <Route path="/" exact component={Home} />
           <Route path="/play" component={Play} />
         </div>

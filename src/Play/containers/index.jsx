@@ -44,8 +44,10 @@ export default class Play extends PureComponent {
     return (
       <div
         style={{
+          height: '-webkit-fill-available',
           display: 'flex',
           flexDirection: 'row',
+          alignItems: 'center',
           justifyContent: 'space-around',
         }}
       >

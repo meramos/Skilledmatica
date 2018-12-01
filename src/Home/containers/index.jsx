@@ -14,9 +14,10 @@ export default class index extends PureComponent {
 
 const styles = {
   container: {
+    height: '-webkit-fill-available',
     display: 'flex',
     flexDirection: 'column',
-    // width: '100%',
     alignItems: 'center',
+    justifyContent: 'center',
   },
 };
