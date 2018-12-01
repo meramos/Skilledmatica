@@ -19,50 +19,62 @@ export default class OperatorPanel extends PureComponent {
   }
 
   addMirror() {
-    var splitEquation = this.props.equation.split('=');
+    const { equation, onChangeEquation, onChangeDisabled } = this.props;
+
+    var splitEquation = equation.split('=');
     var leftside = splitEquation[0] + '+';
     var rightside = splitEquation[1] + '+';
 
     const newEquation = leftside + '=' + rightside;
-    this.props.onChangeEquation(newEquation);
-
-    //var newEquation = math.simplify(leftside) + '=' + math.simplify(rightside);
+    onChangeEquation(newEquation);
+    onChangeDisabled(true);
   }
 
   substractMirror() {
-    var splitEquation = this.props.equation.split('=');
+    const { equation, onChangeEquation, onChangeDisabled } = this.props;
+
+    var splitEquation = equation.split('=');
     var leftside = splitEquation[0] + '-';
     var rightside = splitEquation[1] + '-';
 
     const newEquation = leftside + '=' + rightside;
-    this.props.onChangeEquation(newEquation);
+    onChangeEquation(newEquation);
+    onChangeDisabled(true);
   }
 
   multiplyMirror() {
-    var splitEquation = this.props.equation.split('=');
+    const { equation, onChangeEquation, onChangeDisabled } = this.props;
+
+    var splitEquation = equation.split('=');
     var leftside = '(' + splitEquation[0] + ')*';
     var rightside = '(' + splitEquation[1] + ')*';
 
     const newEquation = leftside + '=' + rightside;
-    this.props.onChangeEquation(newEquation);
+    onChangeEquation(newEquation);
+    onChangeDisabled(true);
   }
 
   divideMirror() {
-    var splitEquation = this.props.equation.split('=');
+    const { equation, onChangeEquation, onChangeDisabled } = this.props;
+
+    var splitEquation = equation.split('=');
     var leftside = '(' + splitEquation[0] + ')/';
     var rightside = '(' + splitEquation[1] + ')/';
 
     const newEquation = leftside + '=' + rightside;
-    this.props.onChangeEquation(newEquation);
+    onChangeEquation(newEquation);
+    onChangeDisabled(true);
   }
 
   exponentMirror() {
-    var splitEquation = this.props.equation.split('=');
+    const { equation, onChangeEquation, onChangeDisabled } = this.props;
+    var splitEquation = equation.split('=');
     var leftside = '(' + splitEquation[0] + ')^';
     var rightside = '(' + splitEquation[1] + ')^';
 
     const newEquation = leftside + '=' + rightside;
-    this.props.onChangeEquation(newEquation);
+    onChangeEquation(newEquation);
+    onChangeDisabled(true);
   }
 
   render() {
@@ -79,6 +91,7 @@ export default class OperatorPanel extends PureComponent {
           type="primary"
           action={this.addMirror}
           style={{ marginRight: '2px' }}
+          disabled={this.props.disableOperatorPanel}
         >
           +
         </AwesomeButton>
@@ -86,6 +99,7 @@ export default class OperatorPanel extends PureComponent {
           type="primary"
           action={this.substractMirror}
           style={{ marginRight: '2px' }}
+          disabled={this.props.disableOperatorPanel}
         >
           &minus;
         </AwesomeButton>
@@ -93,6 +107,7 @@ export default class OperatorPanel extends PureComponent {
           type="primary"
           action={this.multiplyMirror}
           style={{ marginRight: '2px' }}
+          disabled={this.props.disableOperatorPanel}
         >
           *
         </AwesomeButton>
@@ -100,10 +115,15 @@ export default class OperatorPanel extends PureComponent {
           type="primary"
           action={this.divideMirror}
           style={{ marginRight: '2px' }}
+          disabled={this.props.disableOperatorPanel}
         >
           &divide;
         </AwesomeButton>
-        <AwesomeButton type="primary" action={this.exponentMirror}>
+        <AwesomeButton
+          type="primary"
+          action={this.exponentMirror}
+          disabled={this.props.disableOperatorPanel}
+        >
           ^
         </AwesomeButton>
       </div>
@@ -113,5 +133,7 @@ export default class OperatorPanel extends PureComponent {
 
 OperatorPanel.protoTypes = {
   equation: PropTypes.string,
+  disableOperatorPanel: PropTypes.string,
   onChangeEquation: PropTypes.func,
+  onChangeDisabled: PropTypes.func,
 };
