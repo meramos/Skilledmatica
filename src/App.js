@@ -7,10 +7,30 @@ import Home from './Home/containers';
 import Play from './Play/containers';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { width: 0, height: 0 };
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+  }
+
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
+  }
+
   render() {
+    const { width, height } = this.state;
     return (
       <Router>
-        <div style={styles.container}>
+        <div style={[styles.container]}>
           <Route path="/" exact component={Home} />
           <Route path="/play" component={Play} />
         </div>
@@ -20,7 +40,9 @@ class App extends Component {
 }
 
 const styles = {
-  container: {},
+  container: {
+    height: '-webkit-fill-available',
+  },
 };
 
 export default App;

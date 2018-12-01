@@ -4,13 +4,11 @@ export default class Equation extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      equation: '4x + 3 = 2x+1',
-    };
+    this.state = {};
   }
 
   render() {
-    const { equation } = this.state;
+    const { equation } = this.props;
     return <div>{equation}</div>;
   }
 }
