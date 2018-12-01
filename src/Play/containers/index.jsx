@@ -5,15 +5,22 @@ import Equation from '../components/Equation';
 import OperatorPanel from './OperatorPanel';
 import KeypadPanel from './KeypadPanel';
 
+//import exercisesJSON from '../exercises.json';
+
+//console.log(exercisesJSON);
+
 export default class Play extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      start: '4x + 3 = 2x+1',
-      equation: '4x + 3 = 2x+1',
+      start: '4 x + 3 = 2 x + 1',
+      equation: '4 x + 3 = 2 x + 1',
       solution: 'x = -1',
       next: undefined,
+      previous: '9x+34',
+      disableOperatorPanel: false,
+      disableKeypadPanel: false,
     };
 
     this.renderOperatorPanel = this.renderOperatorPanel.bind(this);
@@ -39,24 +46,32 @@ export default class Play extends PureComponent {
   }
 
   renderOperatorPanel() {
-    const { equation } = this.state;
+    const { equation, disableOperatorPanel } = this.state;
     return (
       <OperatorPanel
         equation={equation}
+        disableOperatorPanel={disableOperatorPanel}
         onChangeEquation={equation => {
           this.setState({ equation });
+        }}
+        onChangeDisabled={disableOperatorPanel => {
+          this.setState({ disableOperatorPanel });
         }}
       />
     );
   }
 
   renderKeypadPanel() {
-    const { equation } = this.state;
+    const { equation, disableOperatorPanel } = this.state;
     return (
       <KeypadPanel
         equation={equation}
+        disableOperatorPanel={disableOperatorPanel}
         onChange={equation => {
           this.setState({ equation });
+        }}
+        onChangeDisabled={disableOperatorPanel => {
+          this.setState({ disableOperatorPanel });
         }}
       />
     );
@@ -64,6 +79,7 @@ export default class Play extends PureComponent {
 
   render() {
     const { equation } = this.state;
+    const { previous } = this.state;
     return (
       <div
         style={{
@@ -74,8 +90,8 @@ export default class Play extends PureComponent {
           justifyContent: 'space-around',
         }}
       >
+        {/* <Equation equation={previous} /> */}
         <Equation equation={equation} />
-
         <div
           id="Panel"
           style={{
