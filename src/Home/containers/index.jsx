@@ -6,7 +6,10 @@ export default class index extends PureComponent {
   render() {
     return (
       <div style={styles.container}>
-        <p style={styles.title}>Skilledmatica</p>
+        <div>
+          <p style={styles.title}>Skilledmatica</p>
+          <p> Experiment with solving algebraic equations! </p>
+        </div>
         <AwesomeButton type="primary">
           <Link to="/play">Start</Link>
         </AwesomeButton>
@@ -22,10 +25,16 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    //backgroundImage: 'url(../../home_bg.jpg) noRepeat center center fixed',
+    //backgroundSize: 'cover',
+    //overflow: 'hidden',
   },
   title: {
     fontStyle: 'italic',
     fontSize: '50px',
     color: '#0D1321',
+  },
+  subtitle: {
+    marginBottom: '30x',
   },
 };
