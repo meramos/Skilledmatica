@@ -13,6 +13,8 @@ export default class index extends PureComponent {
         <Link to="/play">
           <AwesomeButton type="primary">Start</AwesomeButton>
         </Link>
+        <br />
+        <Link to="/bugsReport">Known Bugs</Link>
       </div>
     );
   }
