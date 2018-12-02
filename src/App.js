@@ -6,6 +6,7 @@ import './App.css';
 import Home from './Home/containers';
 import Play from './Play/containers';
 import End from './End/containers';
+import BugsReport from './BugsReport/containers';
 
 class App extends Component {
   constructor(props) {
@@ -35,6 +36,7 @@ class App extends Component {
           <Route path="/" exact component={Home} />
           <Route path="/play" component={Play} />
           <Route path="/end" component={End} />
+          <Route path="/bugsReport" component={BugsReport} />
         </div>
       </Router>
     );
