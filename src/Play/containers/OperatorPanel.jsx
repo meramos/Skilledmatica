@@ -15,7 +15,7 @@ export default class OperatorPanel extends PureComponent {
     this.substractMirror = this.substractMirror.bind(this);
     this.multiplyMirror = this.multiplyMirror.bind(this);
     this.divideMirror = this.divideMirror.bind(this);
-    this.exponentMirror = this.exponentMirror.bind(this);
+    this.negateMirror = this.negateMirror.bind(this);
   }
 
   addMirror() {
@@ -66,15 +66,15 @@ export default class OperatorPanel extends PureComponent {
     onChangeDisabled(true);
   }
 
-  exponentMirror() {
+  negateMirror() {
     const { equation, onChangeEquation, onChangeDisabled } = this.props;
     var splitEquation = equation.split('=');
-    var leftside = '(' + splitEquation[0] + ')^';
-    var rightside = '(' + splitEquation[1] + ')^';
+    var leftside = '-(' + splitEquation[0] + ')';
+    var rightside = '-(' + splitEquation[1] + ')';
 
     const newEquation = leftside + '=' + rightside;
     onChangeEquation(newEquation);
-    onChangeDisabled(true);
+    onChangeDisabled(false);
   }
 
   render() {
@@ -121,10 +121,10 @@ export default class OperatorPanel extends PureComponent {
         </AwesomeButton>
         <AwesomeButton
           type="primary"
-          action={this.exponentMirror}
+          action={this.negateMirror}
           disabled={this.props.disableOperatorPanel}
         >
-          ^
+          (&minus;)
         </AwesomeButton>
       </div>
     );
