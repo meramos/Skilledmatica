@@ -121,7 +121,7 @@ export default class Play extends PureComponent {
   render() {
     const { equation, previous, showInfoModal, showHintModal } = this.state;
     return (
-      <div>
+      <div style={styles.container}>
         {this.state.finished ? <Redirect to="/end" /> : undefined}
         <div
           style={{
@@ -132,7 +132,20 @@ export default class Play extends PureComponent {
             justifyContent: 'space-around',
           }}
         >
-          <Equation equation={equation} previous={previous} />
+          <div
+            style={{
+              backgroundColor: '#FFFFFF7F',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '60px',
+              borderRadius: '30px',
+            }}
+          >
+            <Equation equation={equation} previous={previous} />
+          </div>
+
           <div
             id="Panel"
             style={{
@@ -141,6 +154,9 @@ export default class Play extends PureComponent {
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
+              backgroundColor: '#FFFFFF7F',
+              padding: '60px',
+              borderRadius: '30px',
             }}
           >
             <div>
@@ -225,3 +241,13 @@ export default class Play extends PureComponent {
     );
   }
 }
+
+const styles = {
+  container: {
+    height: '-webkit-fill-available',
+
+    width: '100%',
+    backgroundImage: 'url(images/home_bg.jpg)',
+    backgroundSize: 'cover',
+  },
+};

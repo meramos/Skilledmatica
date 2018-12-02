@@ -7,12 +7,24 @@ export default class index extends PureComponent {
   render() {
     return (
       <div style={styles.container}>
-        <div className="img">
-          <img src={ThankYouComeAgain} />
+        <div
+          style={{
+            backgroundColor: '#FFFFFF7F',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '60px',
+            borderRadius: '30px',
+          }}
+        >
+          <div className="img">
+            <img src={ThankYouComeAgain} />
+          </div>
+          <Link to="/">
+            <AwesomeButton type="primary">Return to First Screen</AwesomeButton>
+          </Link>
         </div>
-        <Link to="/">
-          <AwesomeButton type="primary">Return to First Screen</AwesomeButton>
-        </Link>
       </div>
     );
   }
@@ -25,5 +37,8 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    width: '100%',
+    backgroundImage: 'url(images/home_bg.jpg)',
+    backgroundSize: 'cover',
   },
 };
