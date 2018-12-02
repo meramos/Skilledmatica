@@ -15,7 +15,7 @@ export default class KeypadPanel extends PureComponent {
 
     this.appendNumber = this.appendNumber.bind(this);
     this.erase = this.erase.bind(this);
-    this.enter = this.enter.bind(this);
+    this.simplify = this.simplify.bind(this);
   }
 
   appendNumber(number) {
@@ -31,7 +31,7 @@ export default class KeypadPanel extends PureComponent {
   }
 
   erase() {
-    const { equation, onChange } = this.props;
+    const { equation, onChange, onChangeDisabled } = this.props;
 
     const splitEquation = equation.split('=');
     let leftside = splitEquation[0];
@@ -43,6 +43,17 @@ export default class KeypadPanel extends PureComponent {
     // erase last char
     leftside = leftside.slice(0, -1);
     rightside = rightside.slice(0, -1);
+
+    // If erasing operation, activate operations panel
+    if (
+      lastChar === '+' ||
+      lastChar === '-' ||
+      lastChar === '*' ||
+      lastChar === '/' ||
+      lastChar === '^'
+    ) {
+      onChangeDisabled(false);
+    }
 
     // if erasing an operation that added parenthesis, remove parenthesis too
     if (lastChar === '*' || lastChar === '/' || lastChar === '^') {
@@ -56,8 +67,8 @@ export default class KeypadPanel extends PureComponent {
     onChange(newEquation);
   }
 
-  enter() {
-    const { equation, onChange } = this.props;
+  simplify() {
+    const { equation, onChange, onChangeDisabled } = this.props;
 
     var splitEquation = equation.split('=');
     var leftside = splitEquation[0];
@@ -66,18 +77,12 @@ export default class KeypadPanel extends PureComponent {
       math.simplify(leftside) + '=' + math.simplify(rightside);
 
     onChange(newEquation);
+    onChangeDisabled(false);
   }
 
   render() {
     return (
       <div style={{ marginBottom: '10px', marginTop: '10px' }}>
-        <AwesomeButton
-          type="primary"
-          action={() => this.appendNumber(0)}
-          style={{ marginRight: '2px' }}
-        >
-          0
-        </AwesomeButton>
         <AwesomeButton
           type="primary"
           action={() => this.appendNumber(1)}
@@ -92,7 +97,6 @@ export default class KeypadPanel extends PureComponent {
         >
           2
         </AwesomeButton>
-        <br />
         <AwesomeButton
           type="primary"
           action={() => this.appendNumber(3)}
@@ -100,6 +104,9 @@ export default class KeypadPanel extends PureComponent {
         >
           3
         </AwesomeButton>
+
+        <br />
+
         <AwesomeButton
           type="primary"
           action={() => this.appendNumber(4)}
@@ -114,7 +121,6 @@ export default class KeypadPanel extends PureComponent {
         >
           5
         </AwesomeButton>
-        <br />
         <AwesomeButton
           type="primary"
           action={() => this.appendNumber(6)}
@@ -122,6 +128,9 @@ export default class KeypadPanel extends PureComponent {
         >
           6
         </AwesomeButton>
+
+        <br />
+
         <AwesomeButton
           type="primary"
           action={() => this.appendNumber(7)}
@@ -136,13 +145,22 @@ export default class KeypadPanel extends PureComponent {
         >
           8
         </AwesomeButton>
-        <br />
         <AwesomeButton
           type="primary"
           action={() => this.appendNumber(9)}
           style={{ marginRight: '2px' }}
         >
           9
+        </AwesomeButton>
+
+        <br />
+
+        <AwesomeButton
+          type="primary"
+          action={() => this.appendNumber(0)}
+          style={{ marginRight: '2px' }}
+        >
+          0
         </AwesomeButton>
         <AwesomeButton
           type="primary"
@@ -151,23 +169,32 @@ export default class KeypadPanel extends PureComponent {
         >
           x
         </AwesomeButton>
-
+        <AwesomeButton
+          type="primary"
+          action={this.addMirror}
+          style={{ marginRight: '2px' }}
+          disabled={true}
+        >
+          y
+        </AwesomeButton>
+        <br />
         <br />
 
         <AwesomeButton
           type="primary"
           action={this.erase}
-          style={{ marginLeft: '2px', fontSize: '30px' }}
+          style={{ marginLeft: '2px' }}
         >
-          ⏎
+          Backspace
         </AwesomeButton>
 
         <AwesomeButton
           type="primary"
-          action={this.enter}
-          style={{ marginLeft: '2px', fontSize: '30px' }}
+          action={this.simplify}
+          style={{ marginLeft: '2px' }}
+          disabled={this.props.disableOperatorPanel}
         >
-          ▷
+          Simplify
         </AwesomeButton>
       </div>
     );
