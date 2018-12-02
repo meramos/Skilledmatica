@@ -12,9 +12,13 @@ export default class Equation extends PureComponent {
     return (
       <div>
         <h1 style={{ color: '#0D1321' }}> Solve for x.</h1>
-        <div style={{ color: '#808080', fontSize: '20px' }}>{previous}</div>
+        <div style={{ color: '#808080', fontSize: '20px', fontFamily: 'Teko' }}>
+          {previous}
+        </div>
         <br />
-        <div style={{ color: '#0D1321', fontSize: '40px' }}>{equation}</div>
+        <div style={{ color: '#0D1321', fontSize: '40px', fontFamily: 'Teko' }}>
+          {equation}
+        </div>
       </div>
     );
   }
