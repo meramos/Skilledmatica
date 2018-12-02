@@ -10,9 +10,9 @@ export default class index extends PureComponent {
         <div className="img">
           <img src={ThankYouComeAgain} />
         </div>
-        <AwesomeButton type="primary">
-          <Link to="/">Return to First Screen</Link>
-        </AwesomeButton>
+        <Link to="/">
+          <AwesomeButton type="primary">Return to First Screen</AwesomeButton>
+        </Link>
       </div>
     );
   }
