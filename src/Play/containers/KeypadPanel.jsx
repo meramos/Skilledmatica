@@ -16,6 +16,7 @@ export default class KeypadPanel extends PureComponent {
     this.appendNumber = this.appendNumber.bind(this);
     this.erase = this.erase.bind(this);
     this.simplify = this.simplify.bind(this);
+    //this.undo = this.undo.bind(this);
   }
 
   appendNumber(number) {
@@ -49,14 +50,13 @@ export default class KeypadPanel extends PureComponent {
       lastChar === '+' ||
       lastChar === '-' ||
       lastChar === '*' ||
-      lastChar === '/' ||
-      lastChar === '^'
+      lastChar === '/'
     ) {
       onChangeDisabled(false);
     }
 
     // if erasing an operation that added parenthesis, remove parenthesis too
-    if (lastChar === '*' || lastChar === '/' || lastChar === '^') {
+    if (lastChar === '*' || lastChar === '/') {
       // erase new last char, and first char
       leftside = leftside.slice(0, -1).substring(1);
       rightside = rightside.slice(0, -1).substring(1);
@@ -66,6 +66,12 @@ export default class KeypadPanel extends PureComponent {
 
     onChange(newEquation);
   }
+
+  // undo() {
+  //   const { previous, onChange, onChangePrevious } = this.props;
+  //   onChange(previous);
+  //   onChangePrevious('-');
+  // }
 
   simplify() {
     const {
@@ -193,7 +199,7 @@ export default class KeypadPanel extends PureComponent {
           action={this.erase}
           style={{ marginLeft: '2px' }}
         >
-          Backspace
+          Undo
         </AwesomeButton>
 
         <AwesomeButton
