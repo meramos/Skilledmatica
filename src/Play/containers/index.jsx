@@ -116,7 +116,7 @@ export default class Play extends PureComponent {
     const { equation, previous, showInfoModal, showHintModal } = this.state;
     return (
       <div>
-        {this.state.finished ? <Redirect to="/end" /> : 0}
+        {this.state.finished ? <Redirect to="/end" /> : undefined}
         <h1> Instructions: Solve for x.</h1>
         <div
           style={{
