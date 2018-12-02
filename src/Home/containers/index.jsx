@@ -6,15 +6,28 @@ export default class Home extends PureComponent {
   render() {
     return (
       <div style={styles.container}>
-        <div>
-          <p style={styles.title}>Skilledmatica</p>
-          <p> Experiment with solving algebraic equations! </p>
+        <div
+          style={{
+            backgroundColor: '#FFFFFF7F',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '60px',
+            borderRadius: '30px',
+          }}
+        >
+          <div>
+            <p style={styles.title}>Skilledmatica</p>
+            <p> Experiment with solving algebraic equations! </p>
+          </div>
+          <Link to="/play">
+            <AwesomeButton type="primary">Start</AwesomeButton>
+          </Link>
+          <span style={{ marginTop: '40px' }}>
+            <Link to="/bugsReport">Known Bugs</Link>
+          </span>
         </div>
-        <Link to="/play">
-          <AwesomeButton type="primary">Start</AwesomeButton>
-        </Link>
-        <br />
-        <Link to="/bugsReport">Known Bugs</Link>
       </div>
     );
   }
@@ -22,14 +35,14 @@ export default class Home extends PureComponent {
 
 const styles = {
   container: {
-    height: '-webkit-fill-available',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    //backgroundImage: 'url(../../home_bg.jpg) noRepeat center center fixed',
-    //backgroundSize: 'cover',
-    //overflow: 'hidden',
+    height: '-webkit-fill-available',
+    width: '100%',
+    backgroundImage: 'url(images/home_bg.jpg)',
+    backgroundSize: 'cover',
   },
   title: {
     fontFamily: 'Catamaran',
@@ -39,6 +52,6 @@ const styles = {
     color: '#0D1321',
   },
   subtitle: {
-    marginBottom: '30x',
+    marginBottom: '30px',
   },
 };
