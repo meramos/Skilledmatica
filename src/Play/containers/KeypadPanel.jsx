@@ -68,7 +68,12 @@ export default class KeypadPanel extends PureComponent {
   }
 
   simplify() {
-    const { equation, onChange, onChangeDisabled } = this.props;
+    const {
+      equation,
+      onChange,
+      onChangePrevious,
+      onChangeDisabled,
+    } = this.props;
 
     var splitEquation = equation.split('=');
     var leftside = splitEquation[0];
@@ -76,6 +81,9 @@ export default class KeypadPanel extends PureComponent {
     const newEquation =
       math.simplify(leftside) + '=' + math.simplify(rightside);
 
+    if (equation != newEquation) {
+      onChangePrevious(equation);
+    }
     onChange(newEquation);
     onChangeDisabled(false);
   }
@@ -203,6 +211,8 @@ export default class KeypadPanel extends PureComponent {
 
 KeypadPanel.protoTypes = {
   equation: PropTypes.string,
+  previous: PropTypes.string,
   onChange: PropTypes.func,
+  onChangePrevious: PropTypes.func,
   onChangeDisabled: PropTypes.func,
 };
