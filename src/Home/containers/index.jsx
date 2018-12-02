@@ -10,9 +10,9 @@ export default class index extends PureComponent {
           <p style={styles.title}>Skilledmatica</p>
           <p> Experiment with solving algebraic equations! </p>
         </div>
-        <AwesomeButton type="primary">
-          <Link to="/play">Start</Link>
-        </AwesomeButton>
+        <Link to="/play">
+          <AwesomeButton type="primary">Start</AwesomeButton>
+        </Link>
       </div>
     );
   }
