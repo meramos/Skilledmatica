@@ -8,7 +8,14 @@ export default class Equation extends PureComponent {
   }
 
   render() {
-    const { equation } = this.props;
-    return <div style={{ color: '#0D1321', fontSize: '40px' }}>{equation}</div>;
+    const { equation, previous } = this.props;
+    return (
+      <div>
+        <h1 style={{ color: '#0D1321' }}> Solve for x.</h1>
+        <div style={{ color: '#808080', fontSize: '20px' }}>{previous}</div>
+        <br />
+        <div style={{ color: '#0D1321', fontSize: '40px' }}>{equation}</div>
+      </div>
+    );
   }
 }
