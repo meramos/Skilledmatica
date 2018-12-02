@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { AwesomeButton } from 'react-awesome-button';
 
-export default class index extends PureComponent {
+export default class Home extends PureComponent {
   render() {
     return (
       <div style={styles.container}>
@@ -30,6 +30,8 @@ const styles = {
     //overflow: 'hidden',
   },
   title: {
+    fontFamily: 'Catamaran',
+    fontWeight: 700,
     fontStyle: 'italic',
     fontSize: '50px',
     color: '#0D1321',
