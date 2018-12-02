@@ -19,7 +19,7 @@ export default class Play extends PureComponent {
       equation: '4 x + 3 = 2 x + 1',
       solution: 'x = -1',
       next: undefined,
-      previous: '9x+34',
+      previous: '-',
       disableOperatorPanel: false,
       disableKeypadPanel: false,
       showInfoModal: false,
@@ -49,12 +49,14 @@ export default class Play extends PureComponent {
         exerciseNumber: index,
         start: exercises[index.toString()]['equation'],
         equation: exercises[index.toString()]['equation'],
+        previous: '-',
       });
     }
   }
 
   reset() {
     this.setState({ equation: this.state.start });
+    this.setState({ previous: '-' });
     this.setState({ disableOperatorPanel: false });
   }
 
@@ -75,13 +77,17 @@ export default class Play extends PureComponent {
   }
 
   renderKeypadPanel() {
-    const { equation, disableOperatorPanel } = this.state;
+    const { equation, previous, disableOperatorPanel } = this.state;
     return (
       <KeypadPanel
         equation={equation}
+        previous={previous}
         disableOperatorPanel={disableOperatorPanel}
         onChange={equation => {
           this.setState({ equation });
+        }}
+        onChangePrevious={previous => {
+          this.setState({ previous });
         }}
         onChangeDisabled={disableOperatorPanel => {
           this.setState({ disableOperatorPanel });
@@ -117,7 +123,6 @@ export default class Play extends PureComponent {
     return (
       <div>
         {this.state.finished ? <Redirect to="/end" /> : undefined}
-        <h1> Instructions: Solve for x.</h1>
         <div
           style={{
             height: '-webkit-fill-available',
@@ -127,8 +132,7 @@ export default class Play extends PureComponent {
             justifyContent: 'space-around',
           }}
         >
-          {/* <Equation equation={previous} /> */}
-          <Equation equation={equation} />
+          <Equation equation={equation} previous={previous} />
           <div
             id="Panel"
             style={{
