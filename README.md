@@ -9,3 +9,9 @@ Set-up:
 3. Install [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) or [yarn](https://yarnpkg.com/lang/en/docs/install/#debian-stable).
 4. Run `npm install` or `yarn install`
 5. Run `npm start`. The application will open in your default web browser, and it will have the URL http://localhost:3000/.
+
+Screenshots:
+
+![Alt text](skilledmatica_start.png "start screen")
+![Alt text](skilledmatica_exercise.png "exercise screen")
+![Alt text](skilledmatica_lastscreen.png "last screen")
