@@ -6,6 +6,7 @@
     "mathjs": "^5.3.0",
     "react": "^16.6.3",
     "react-awesome-button": "^5.0.0",
+    "react-confetti": "^4.0.1",
     "react-dom": "^16.6.3",
     "react-responsive-modal": "^3.5.1",
     "react-router": "^4.3.1",

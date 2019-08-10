@@ -24,6 +24,7 @@ export default class Play extends PureComponent {
       disableKeypadPanel: false,
       showInfoModal: false,
       showHintModal: false,
+      done: false
     };
 
     this.renderOperatorPanel = this.renderOperatorPanel.bind(this);
@@ -37,6 +38,7 @@ export default class Play extends PureComponent {
   }
 
   nextExercise() {
+    // STOP THE CONFETTI if it was started
     const { exerciseNumber } = this.state;
     const index = exerciseNumber + 1;
 
@@ -50,6 +52,7 @@ export default class Play extends PureComponent {
         start: exercises[index.toString()]['equation'],
         equation: exercises[index.toString()]['equation'],
         previous: '-',
+        done: false
       });
     }
   }
@@ -77,11 +80,12 @@ export default class Play extends PureComponent {
   }
 
   renderKeypadPanel() {
-    const { equation, previous, disableOperatorPanel } = this.state;
+    const { equation, previous, disableOperatorPanel, done } = this.state;
     return (
       <KeypadPanel
         equation={equation}
         previous={previous}
+        done={done}
         disableOperatorPanel={disableOperatorPanel}
         onChange={equation => {
           this.setState({ equation });
@@ -91,6 +95,9 @@ export default class Play extends PureComponent {
         }}
         onChangeDisabled={disableOperatorPanel => {
           this.setState({ disableOperatorPanel });
+        }}
+        controlConfetti = {done => {
+          this.setState({ done })
         }}
       />
     );

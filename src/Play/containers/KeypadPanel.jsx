@@ -4,14 +4,21 @@ import 'react-awesome-button/dist/styles.css';
 import PropTypes from 'prop-types';
 import * as math from 'mathjs';
 
+import Confetti from 'react-confetti'
+
 export default class KeypadPanel extends PureComponent {
   constructor(props) {
     super(props);
 
+    const { done } = this.props;
+
     this.state = {
       value: 0,
-      result: '',
+      result: ''
     };
+
+    console.log("done props = ",this.props.done)
+    console.log("done value = ",this.props.done)
 
     this.appendNumber = this.appendNumber.bind(this);
     this.erase = this.erase.bind(this);
@@ -79,24 +86,45 @@ export default class KeypadPanel extends PureComponent {
       onChange,
       onChangePrevious,
       onChangeDisabled,
+      controlConfetti
     } = this.props;
+
+    // this.setState({
+    //   done: done
+    // })
 
     var splitEquation = equation.split('=');
     var leftside = splitEquation[0];
     var rightside = splitEquation[1];
-    const newEquation =
-      math.simplify(leftside) + '=' + math.simplify(rightside);
+
+    var new_left = math.simplify(leftside);
+    var new_right = math.simplify(rightside);
+    const newEquation = new_left + '=' + new_right ;
+
+
+    if((new_left == 'x') || (new_right == 'x')){
+      console.log("CELEBRATION!")
+      controlConfetti(true)
+    }
 
     if (equation != newEquation) {
       onChangePrevious(equation);
     }
     onChange(newEquation);
     onChangeDisabled(false);
+
   }
 
   render() {
+    const { done } = this.props;
+    let confetti;
+    if(done){
+      confetti = <Confetti/>
+    }
+
     return (
       <div style={{ marginBottom: '10px', marginTop: '10px' }}>
+        {confetti}
         <AwesomeButton
           type="primary"
           action={() => this.appendNumber(1)}
@@ -218,7 +246,9 @@ export default class KeypadPanel extends PureComponent {
 KeypadPanel.protoTypes = {
   equation: PropTypes.string,
   previous: PropTypes.string,
+  done: PropTypes.bool,
   onChange: PropTypes.func,
   onChangePrevious: PropTypes.func,
   onChangeDisabled: PropTypes.func,
+  controlConfetti: PropTypes.func
 };
