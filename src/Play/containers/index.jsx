@@ -15,15 +15,16 @@ export default class Play extends PureComponent {
     this.state = {
       exerciseNumber: 0,
       finished: false,
-      start: '4 x + 3 = 2 x + 1',
-      equation: '4 x + 3 = 2 x + 1',
-      solution: 'x = -1',
+      start: exercises[0]['equation'], //'4 x + 3 = 2 x + 1',
+      equation: exercises[0]['equation'], //'4 x + 3 = 2 x + 1',
+      steps: [exercises[0]['equation']],
       next: undefined,
       previous: '-',
       disableOperatorPanel: false,
       disableKeypadPanel: false,
       showInfoModal: false,
       showHintModal: false,
+      showStepsModal: false,
       done: false
     };
 
@@ -35,32 +36,38 @@ export default class Play extends PureComponent {
     this.onCloseInfoModal = this.onCloseInfoModal.bind(this);
     this.onOpenHintModal = this.onOpenHintModal.bind(this);
     this.onCloseHintModal = this.onCloseHintModal.bind(this);
+    this.onOpenStepsModal = this.onOpenStepsModal.bind(this);
+    this.onCloseStepsModal = this.onCloseStepsModal.bind(this);
   }
 
-  nextExercise() {
-    // STOP THE CONFETTI if it was started
+  nextExercise() { 
     const { exerciseNumber } = this.state;
     const index = exerciseNumber + 1;
 
-    if (exercises[index.toString()] === undefined) {
+    if (exercises[index] === undefined) {
       this.setState({
         finished: true,
       });
     } else {
       this.setState({
         exerciseNumber: index,
-        start: exercises[index.toString()]['equation'],
-        equation: exercises[index.toString()]['equation'],
+        start: exercises[index]['equation'],
+        equation: exercises[index]['equation'],
         previous: '-',
-        done: false
+        steps: [exercises[index]['equation']],
+        done: false // NO MORE CONFETTI
       });
     }
   }
 
   reset() {
-    this.setState({ equation: this.state.start });
-    this.setState({ previous: '-' });
-    this.setState({ disableOperatorPanel: false });
+    this.setState({ 
+      equation: this.state.start,
+      previous: '-',
+      steps: [this.state.start],
+      disableOperatorPanel: false,
+      done: false // NO MORE CONFETTI 
+    });
   }
 
   renderOperatorPanel() {
@@ -80,10 +87,11 @@ export default class Play extends PureComponent {
   }
 
   renderKeypadPanel() {
-    const { equation, previous, disableOperatorPanel, done } = this.state;
+    const { equation, steps, previous, disableOperatorPanel, done } = this.state;
     return (
       <KeypadPanel
         equation={equation}
+        steps={steps}
         previous={previous}
         done={done}
         disableOperatorPanel={disableOperatorPanel}
@@ -98,6 +106,12 @@ export default class Play extends PureComponent {
         }}
         controlConfetti = {done => {
           this.setState({ done })
+        }}
+        setSteps = {(newState) => {
+          this.setState({ steps: newState})
+        }}
+        setStepsModal = {(newState) => {
+          this.setState({ showStepsModal: newState });
         }}
       />
     );
@@ -119,6 +133,15 @@ export default class Play extends PureComponent {
     this.setState({ showHintModal: false });
   }
 
+  onOpenStepsModal() {
+    this.setState({ showStepsModal: true });
+  }
+
+  onCloseStepsModal() {
+    this.setState({ showStepsModal: false });
+  }
+
+
   renderIf() {
     if (!exercises.hasOwnProperty((this.state.exerciseNumber + 1).toString())) {
       return <Redirect to="/play" />;
@@ -126,7 +149,7 @@ export default class Play extends PureComponent {
   }
 
   render() {
-    const { equation, previous, showInfoModal, showHintModal } = this.state;
+    const { equation, previous, showInfoModal, showHintModal, showStepsModal, steps } = this.state;
     return (
       <div style={styles.container}>
         {this.state.finished ? <Redirect to="/end" /> : undefined}
@@ -224,6 +247,21 @@ export default class Play extends PureComponent {
                   constants to the right.
                 </p>
               </Modal>
+
+              <Modal
+                open={showStepsModal}
+                onClose={this.onCloseStepsModal}
+                center
+              >
+                <h2>You did it! You found x!</h2>
+                <p>
+                  Here are the steps you followed:
+                  <ol>
+                  {steps.map((step => <li>{step}</li>))}
+                  </ol>
+                </p>
+              </Modal>
+
             </div>
             <br />
             {this.renderOperatorPanel()}

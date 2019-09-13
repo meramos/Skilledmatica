@@ -10,20 +10,14 @@ export default class KeypadPanel extends PureComponent {
   constructor(props) {
     super(props);
 
-    const { done } = this.props;
-
     this.state = {
       value: 0,
       result: ''
     };
 
-    console.log("done props = ",this.props.done)
-    console.log("done value = ",this.props.done)
-
     this.appendNumber = this.appendNumber.bind(this);
-    this.erase = this.erase.bind(this);
     this.simplify = this.simplify.bind(this);
-    //this.undo = this.undo.bind(this);
+    this.undo = this.undo.bind(this);
   }
 
   appendNumber(number) {
@@ -38,60 +32,49 @@ export default class KeypadPanel extends PureComponent {
     onChangeDisabled(false);
   }
 
-  erase() {
-    const { equation, onChange, onChangeDisabled } = this.props;
+  undo() {
+    const {
+      steps,
+      onChange,
+      onChangePrevious,
+      onChangeDisabled,
+      controlConfetti,
+      setSteps
+    } = this.props;
 
-    const splitEquation = equation.split('=');
-    let leftside = splitEquation[0];
-    let rightside = splitEquation[1];
-
-    // store last character before erasing it
-    var lastChar = leftside[leftside.length - 1];
-
-    // erase last char
-    leftside = leftside.slice(0, -1);
-    rightside = rightside.slice(0, -1);
-
-    // If erasing operation, activate operations panel
-    if (
-      lastChar === '+' ||
-      lastChar === '-' ||
-      lastChar === '*' ||
-      lastChar === '/'
-    ) {
-      onChangeDisabled(false);
+    let newEquation = steps[steps.length - 1]; // change equation to the last step
+    let newPrevious;
+    let reduced_steps;
+    
+    if(steps.length >= 2){
+      newPrevious = steps[steps.length - 2];
+      reduced_steps = steps.slice(0, steps.length - 1); // remove last element from steps
+    }
+    else{
+      newPrevious = '-';
+      reduced_steps = steps
     }
 
-    // if erasing an operation that added parenthesis, remove parenthesis too
-    if (lastChar === '*' || lastChar === '/') {
-      // erase new last char, and first char
-      leftside = leftside.slice(0, -1).substring(1);
-      rightside = rightside.slice(0, -1).substring(1);
-    }
+    onChange(newEquation); 
+    onChangePrevious(newPrevious);
+    setSteps(reduced_steps);
+    
+    onChangeDisabled(false);
 
-    const newEquation = leftside + '=' + rightside;
-
-    onChange(newEquation);
+    controlConfetti(false)
   }
-
-  // undo() {
-  //   const { previous, onChange, onChangePrevious } = this.props;
-  //   onChange(previous);
-  //   onChangePrevious('-');
-  // }
 
   simplify() {
     const {
       equation,
+      steps,
       onChange,
       onChangePrevious,
       onChangeDisabled,
-      controlConfetti
+      controlConfetti,
+      setSteps,
+      setStepsModal
     } = this.props;
-
-    // this.setState({
-    //   done: done
-    // })
 
     var splitEquation = equation.split('=');
     var leftside = splitEquation[0];
@@ -101,30 +84,29 @@ export default class KeypadPanel extends PureComponent {
     var new_right = math.simplify(rightside);
     const newEquation = new_left + '=' + new_right ;
 
+    if (equation.replace(/\s/g, '') != newEquation.replace(/\s/g, '')) {
+      // equation changed
+      onChangePrevious(equation);
+      onChange(newEquation);
+      onChangeDisabled(false);
+      setSteps([...steps,equation,newEquation])
+    }
 
     if((new_left == 'x') || (new_right == 'x')){
-      console.log("CELEBRATION!")
-      controlConfetti(true)
+      // found x, celebrate
+      setSteps([...steps,equation,newEquation])
+      controlConfetti(true);
+      setStepsModal(true);
     }
-
-    if (equation != newEquation) {
-      onChangePrevious(equation);
-    }
-    onChange(newEquation);
-    onChangeDisabled(false);
-
   }
 
   render() {
     const { done } = this.props;
-    let confetti;
-    if(done){
-      confetti = <Confetti/>
-    }
-
+    console.log("Props:")
+    console.log(this.props.steps)
     return (
       <div style={{ marginBottom: '10px', marginTop: '10px' }}>
-        {confetti}
+        {done ? <Confetti/> : undefined}
         <AwesomeButton
           type="primary"
           action={() => this.appendNumber(1)}
@@ -224,8 +206,9 @@ export default class KeypadPanel extends PureComponent {
 
         <AwesomeButton
           type="primary"
-          action={this.erase}
+          action={this.undo}
           style={{ marginLeft: '2px' }}
+          disabled={this.props.previous == '-' ? true : false}
         >
           Undo
         </AwesomeButton>
@@ -245,10 +228,13 @@ export default class KeypadPanel extends PureComponent {
 
 KeypadPanel.protoTypes = {
   equation: PropTypes.string,
+  steps: PropTypes.array,
   previous: PropTypes.string,
   done: PropTypes.bool,
   onChange: PropTypes.func,
   onChangePrevious: PropTypes.func,
   onChangeDisabled: PropTypes.func,
-  controlConfetti: PropTypes.func
+  controlConfetti: PropTypes.func,
+  setSteps: PropTypes.func,
+  setStepsModal: PropTypes.func
 };

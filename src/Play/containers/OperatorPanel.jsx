@@ -117,7 +117,7 @@ export default class OperatorPanel extends PureComponent {
           style={{ marginRight: '2px' }}
           disabled={this.props.disableOperatorPanel}
         >
-          &divide;
+          /
         </AwesomeButton>
         <AwesomeButton
           type="primary"
