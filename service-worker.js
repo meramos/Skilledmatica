@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/skilledmatica/precache-manifest.ed8eecbe0426e296ed7686758a5a5eeb.js"
+  "/Skilledmatica/precache-manifest.0bb0a85543e541c994a10c1359927425.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/skilledmatica/index.html", {
+workbox.routing.registerNavigationRoute("/Skilledmatica/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
