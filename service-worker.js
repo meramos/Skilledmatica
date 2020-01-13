@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/Skilledmatica/precache-manifest.0bb0a85543e541c994a10c1359927425.js"
+  "/Skilledmatica/precache-manifest.603c8d3dc58ef020d27be7980f33fb58.js"
 );
 
 workbox.clientsClaim();

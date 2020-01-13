@@ -12,23 +12,23 @@ self.__precacheManifest = [
     "url": "/Skilledmatica/static/js/runtime~main.25b580e3.js"
   },
   {
-    "revision": "7374dd023a254c892b8c",
-    "url": "/Skilledmatica/static/js/main.7374dd02.chunk.js"
+    "revision": "13ca14e3a01b4e198f70",
+    "url": "/Skilledmatica/static/js/main.13ca14e3.chunk.js"
   },
   {
-    "revision": "8bb8d066adffe0459d9f",
-    "url": "/Skilledmatica/static/js/1.8bb8d066.chunk.js"
+    "revision": "43e87a5d276c52ec13c4",
+    "url": "/Skilledmatica/static/js/1.43e87a5d.chunk.js"
   },
   {
-    "revision": "7374dd023a254c892b8c",
+    "revision": "13ca14e3a01b4e198f70",
     "url": "/Skilledmatica/static/css/main.f3b2e8f8.chunk.css"
   },
   {
-    "revision": "8bb8d066adffe0459d9f",
+    "revision": "43e87a5d276c52ec13c4",
     "url": "/Skilledmatica/static/css/1.5b9391eb.chunk.css"
   },
   {
-    "revision": "23b0050b0475257ebeff1640c0f0abc1",
+    "revision": "f0062e86cdc469e5cf6bf1f8ad0b89be",
     "url": "/Skilledmatica/index.html"
   }
 ];
