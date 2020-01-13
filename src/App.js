@@ -29,7 +29,7 @@ class App extends Component {
   }
 
   render() {
-    const { width, height } = this.state;
+    // const { width, height } = this.state;
     return (
       <Router>
         <div id="Routes" style={styles.container}>

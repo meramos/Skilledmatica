@@ -19,7 +19,7 @@ export default class index extends PureComponent {
           }}
         >
           <div className="img">
-            <img src={ThankYouComeAgain} />
+            <img src={ThankYouComeAgain} alt="Thank you come gain" />
           </div>
           <Link to="/">
             <AwesomeButton type="primary">Return to First Screen</AwesomeButton>

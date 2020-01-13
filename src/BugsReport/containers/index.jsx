@@ -20,7 +20,7 @@ export default class index extends PureComponent {
         >
           <h1>Bugs</h1>
           <div className="img">
-            <img src={Bug} style={{ width: '200px', height: '200px' }} />
+            <img src={Bug} alt="Bug" style={{ width: '200px', height: '200px' }} />
           </div>
           <ol>
             <li>2x-2-2x becomes 2x-2(x+1).</li>
