@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { HashRouter, Route } from 'react-router-dom';
 //import logo from './logo.svg';
 import './App.css';
 
@@ -31,22 +31,22 @@ class App extends Component {
   render() {
     // const { width, height } = this.state;
     return (
-      <Router>
-        <div id="Routes" style={styles.container}>
+      <HashRouter basename='/'>
+        <div>
           <Route path="/" exact component={Home} />
           <Route path="/play" component={Play} />
           <Route path="/end" component={End} />
           <Route path="/bugsReport" component={BugsReport} />
         </div>
-      </Router>
+      </HashRouter>
     );
   }
 }
 
-const styles = {
-  container: {
-    height: '-webkit-fill-available',
-  },
-};
+// const styles = {
+//   container: {
+//     height: '-webkit-fill-available',
+//   },
+// };
 
 export default App;
